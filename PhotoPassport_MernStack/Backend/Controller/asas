@@ -1,0 +1,46 @@
+// controller/ImageController.js
+
+exports.processImages = async (req, res) => {
+  try {
+    const files = req.files;
+    const copies_requested = req.body.copies; // Frontend se copies read karein (check frontend key name)
+
+    if (!files || files.length === 0) {
+      return res.status(400).send("No images uploaded");
+    }
+
+    const doc = new PDFDocument({ size: "A4", margin: 10 });
+    // ... rest of the setup ...
+
+    for (let file of files) {
+      const processedBuffer = await processSingleImage(file.buffer);
+
+      // --- MULTPLE COPIES LOGIC ADDED HERE ---
+      const numberOfCopies = Number(copies_requested) || 1; // Default to 1 if not provided
+      
+      for (let i = 0; i < numberOfCopies; i++) {
+        const resized = await sharp(processedBuffer)
+          .resize(passportWidth, passportHeight)
+          .png()
+          .toBuffer();
+
+        doc.image(resized, x, y, {
+          width: passportWidth,
+          height: passportHeight,
+        });
+
+        // Update coordinates and handle page breaks
+        x += passportWidth + 10;
+        if (x > 500) {
+          x = 10;
+          y += passportHeight + 10;
+          if (y > 700) { // Check for new page (example limit)
+            doc.addPage();
+            y = 10;
+          }
+        }
+      }
+    }
+    // ... close PDF ...
+  } catch (err) { ... }
+};
