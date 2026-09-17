@@ -145,8 +145,6 @@ exports.processImages = async (req, res) => {
     for (let i = 0; i < files.length; i++) {
       const processedBuffer = await processSingleImage(files[i].buffer);
       
-      // Frontend se is specific image ki copies maangein
-      // Agar frontend 'copies' ka array nahi bhej raha toh default 6 copies
       const copiesCount = req.body.copies ? (Array.isArray(req.body.copies) ? req.body.copies[i] : req.body.copies) : 6;
 
       const resizedImage = await sharp(processedBuffer)
@@ -154,9 +152,8 @@ exports.processImages = async (req, res) => {
         .png()
         .toBuffer();
 
-      // Jitni copies chahiye utni baar loop chalayein
       for (let j = 0; j < parseInt(copiesCount); j++) {
-        // Check karein page khatam toh nahi ho raha?
+     
         if (y + config.height > 800) {
           doc.addPage();
           y = 20;
@@ -170,7 +167,7 @@ exports.processImages = async (req, res) => {
 
         x += config.width + config.spacing;
 
-        // Agar line bhar gayi hai toh agli line mein jayein
+
         if (x + config.width > 550) {
           x = 20;
           y += config.height + config.spacing;

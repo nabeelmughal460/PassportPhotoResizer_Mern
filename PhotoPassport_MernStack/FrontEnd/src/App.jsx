@@ -3,7 +3,7 @@ import PhotoCard from "./PhotoCard";
 import Cropper from "cropperjs";
 import "cropperjs/dist/cropper.css";
 
-// Particles v3 Imports
+
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
@@ -129,7 +129,7 @@ export default function App() {
   return (
     <div className="min-h-screen text-white relative selection:bg-blue-500/30" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       
-      {/* Background & Particles */}
+    
       <div className="fixed inset-0 bg-[#0a0f1a] -z-20" />
       {init && (
         <Particles
@@ -175,7 +175,7 @@ export default function App() {
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
           
-          {/* Section: Upload */}
+         
           <div
             className="group border-2 border-dashed border-white/10 hover:border-blue-500/50 transition-all bg-white/[0.02] rounded-3xl p-12 cursor-pointer text-center mb-10"
             onClick={() => document.getElementById("fileInput").click()}
@@ -186,7 +186,7 @@ export default function App() {
             <p className="text-gray-400 text-sm">Drag images here or click to browse</p>
           </div>
 
-          {/* Photos List */}
+         
           <div className="grid gap-6">
             {photos.map((p) => (
               <PhotoCard
@@ -199,7 +199,7 @@ export default function App() {
             ))}
           </div>
 
-          {/* 1. NEW: Add More Photos Button */}
+         
           {photos.length > 0 && (
             <div className="flex justify-center mt-6">
               <button 
@@ -211,7 +211,7 @@ export default function App() {
             </div>
           )}
 
-          {/* Settings */}
+         
           <div className="mt-12 pt-8 border-t border-white/5">
             <button className="text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition" onClick={() => setShowAdvanced(!showAdvanced)}>
               {showAdvanced ? "↑ Basic Settings" : "↓ Advanced Print Config"}
@@ -228,8 +228,7 @@ export default function App() {
             )}
           </div>
 
-          {/* Action Area */}
-          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+              <div className="mt-12 flex flex-col sm:flex-row gap-4">
             <button onClick={generatePDF} disabled={loading || !photos.length} className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:scale-105 disabled:opacity-50">
               {loading ? "Processing..." : "Generate Sheet"}
             </button>
@@ -248,8 +247,7 @@ export default function App() {
         </div>
       </main>
 
-      {/* 2. NEW: Feedback Modal (Matches Screenshot) */}
-      {feedbackOpen && (
+          {feedbackOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[200] p-4">
           <div className="bg-[#1e2532] border border-white/10 w-full max-w-md rounded-3xl shadow-2xl animate-in zoom-in-95 duration-200">
             <div className="p-6">
@@ -288,17 +286,14 @@ export default function App() {
         </div>
       )}
 
-      {/* Floating UI Button - Updated Color */}
-      <button 
+          <button 
         onClick={() => setFeedbackOpen(true)}
         className="fixed bottom-8 right-8 bg-[#cc3333] hover:bg-red-600 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-xl hover:scale-110 transition-transform active:scale-95 z-40"
       >
         <span className="scale-x-[-1] inline-block">💬</span>
       </button>
 
-      {/* Crop Modal & Notification Toast (Existing Logic) */}
-        
-              {/* Crop Modal */}
+    
       {cropId !== null && (
         <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-[100] p-6">
           <div className="bg-[#121826] border border-white/10 p-8 rounded-[2rem] max-w-3xl w-full">
